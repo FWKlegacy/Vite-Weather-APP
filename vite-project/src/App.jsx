@@ -9,7 +9,9 @@ function App() {
 
   const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState("");
-  const apiKey="6141dab13c7d37e8db2d28250893827c";
+  const[error, setError]=useState("");
+  const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
+
 
   const fetchWeather = async(cityName)=>{
     try{
@@ -27,6 +29,7 @@ function App() {
       setError('Failed to fetch weather data. Please try again later.');
       
     }
+    
   };
 
   const handleSearch = () =>{
@@ -39,9 +42,10 @@ function App() {
    <div className='app'>
     <h1>Weather App</h1>
     <SearchBar setCity={setCity} city={city} handleSearch={handleSearch}/>
+    {error && <p className="error">{error}</p>}
     {weatherData ? (
       <Weather data={weatherData}/>
-    ) : (<p>Enter a city name to get the weather</p>)} 
+    ) : ( !error && <p>Enter a city name to get the weather</p>)} 
 
    </div>
   );
