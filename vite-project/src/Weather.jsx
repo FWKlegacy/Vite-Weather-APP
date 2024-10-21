@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Weather({data}){
+  if(!data)return null;
   return (
     <div className='weather'>
         <h2>{data.name},{data.sys.country}</h2>

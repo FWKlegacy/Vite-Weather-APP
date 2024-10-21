@@ -14,11 +14,17 @@ function App() {
   const fetchWeather = async(cityName)=>{
     try{
       const response = await axios.get( `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
-      setWeatherData(response.data);
-     
+      
+      if(response.status===200){
+        setWeatherData(response.data);
+      }
+      else{
+        setError("weather data could not be recieved");
+      }
     }
     catch(error){
       console.error("error fetching weather data",error);
+      setError('Failed to fetch weather data. Please try again later.');
       
     }
   };
