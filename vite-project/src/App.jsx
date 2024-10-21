@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import SearchBar from './searchBar';
 import Weather from './Weather';
 import axios from 'axios';
@@ -18,6 +18,10 @@ function App() {
 
   const fetchWeather = async(cityName)=>{
     console.log("fetching weather for :", cityName)
+    if(!cityName){
+      setError("please enter a cityname !");
+      return;
+    }
     try{
       const response = await axios.get( `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
       console.log("API Response", response.data)
